@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios';
+import Card from './UI/Card';
 
 const App = () => {
   const [flights, setFlights] = useState([]);
+  const [direction, setDirection] = useState('D');
+  const [isLoading, setIsLoading] = useState(false);
 
   const now = new Date();
   const tomorrow = new Date(Number(now));
@@ -11,7 +14,8 @@ const App = () => {
   tomorrow.setDate(tomorrow.getDate() + 1);
 
   useEffect(() => {
-    const url = `/flights?flightDirection=D&fromDateTime=${
+    setIsLoading(true);
+    const url = `/flights?flightDirection=${direction}&fromDateTime=${
       now.toJSON().split('.')[0]
     }&toDateTime=${
       tomorrow.toJSON().split('.')[0]
@@ -27,21 +31,36 @@ const App = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setFlights(res.data.flights);
+        setIsLoading(false);
       });
-  }, []);
+  }, [direction]);
+
+  const changeDirection = (mode) => {
+    setDirection(mode);
+  };
 
   return (
     <div>
       <h1>Flights</h1>
-      <ul>
-        {flights.map((flight) => (
-          <li key={flight.id}>
-            {flight.flightName} {flight.flightNumber}
-          </li>
-        ))}
-      </ul>
+      <form>
+        <label htmlFor='flightNumber'>Flight Number</label>
+        <input type='text' name='flightNumber' id='flightNumber' />
+        <button type='submit'>Search</button>
+      </form>
+      <div>
+        <button onClick={(e) => changeDirection('D')}>Departures</button>
+        <button onClick={(e) => changeDirection('A')}>Arrivals</button>
+      </div>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        flights.map((flight) => (
+          <div className='col-md-4' key={flight.id}>
+            <Card flight={flight} direction={direction} />
+          </div>
+        ))
+      )}
     </div>
   );
 };
