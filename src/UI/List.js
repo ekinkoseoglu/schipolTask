@@ -1,18 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
+import Card from './Card';
 import axios from 'axios';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  Routes,
-} from 'react-router-dom';
-import FlightDetails from './UI/FlightDetails';
-import Card from './UI/Card';
-import List from './UI/List';
+import { Link } from 'react-router-dom';
 
-const App = () => {
+const List = () => {
   const [flights, setFlights] = useState([]);
   const [direction, setDirection] = useState('D');
   const [isLoading, setIsLoading] = useState(false);
@@ -49,24 +40,34 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <Routes>
-        <Route path='/flights/:flightId' element={<FlightDetails />} />
-
-        <Route
-          exact
-          path='/'
-          element={
-            <List
-              flights={flights}
-              isLoading={isLoading}
-              direction={direction}
-            />
-          }
-        />
-      </Routes>
-    </Router>
+    <div>
+      <h1>Flights</h1>
+      <form>
+        <label htmlFor='flightNumber'>Flight Number</label>
+        <input type='text' name='flightNumber' id='flightNumber' />
+        <button type='submit'>Search</button>
+      </form>
+      <div>
+        <button onClick={(e) => changeDirection('D')}>Departures</button>
+        <button onClick={(e) => changeDirection('A')}>Arrivals</button>
+      </div>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        flights.map((flight) => (
+          <Link
+            to={`/flights/${flight.id}`}
+            key={flight.id}
+            style={{ color: 'inherit', textDecoration: 'none' }}
+          >
+            <div className='col-md-4' key={flight.id}>
+              <Card flight={flight} direction={direction} />
+            </div>
+          </Link>
+        ))
+      )}
+    </div>
   );
 };
 
-export default App;
+export default List;

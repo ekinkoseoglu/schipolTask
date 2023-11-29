@@ -46,7 +46,7 @@ const Card = ({ flight, direction }) => {
   };
 
   return (
-    <div className='flightCard mb-3 ' key={flight.id}>
+    <div className='flightCard mb-3' key={flight.id}>
       <div>
         <h6 className='card-subtitle mb-2 text-muted d-flex  justify-content-between align-items-center'>
           <p>Time</p>
