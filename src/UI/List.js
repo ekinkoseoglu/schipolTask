@@ -7,6 +7,7 @@ const List = () => {
   const [flights, setFlights] = useState([]);
   const [direction, setDirection] = useState('D');
   const [isLoading, setIsLoading] = useState(false);
+  const [destinations, setDestinations] = useState([]);
 
   const now = new Date();
   const tomorrow = new Date(Number(now));
@@ -31,6 +32,7 @@ const List = () => {
       })
       .then((res) => {
         setFlights(res.data.flights);
+
         setIsLoading(false);
       });
   }, [direction]);
