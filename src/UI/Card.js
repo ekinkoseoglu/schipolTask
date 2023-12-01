@@ -5,19 +5,21 @@ import axios from 'axios';
 const Card = ({ flight, direction }) => {
   const [city, setCity] = useState('');
   useEffect(() => {
-    axios
-      .get(`/destinations/${flight.route.destinations[0]}`, {
-        headers: {
-          Accept: 'application/json',
-          app_id: 'b1a06b6e',
-          app_key: 'aa28d83034a1edc1f9a07b340847013c',
-          ResourceVersion: 'v4',
-        },
-      })
-      .then((res) => {
-        console.log(res.data.city);
-        setCity(res.data.city);
-      });
+    // axios
+    //   .get(`/destinations/${flight.route.destinations[0]}`, {
+    //     headers: {
+    //       Accept: 'application/json',
+    //       app_id: 'b1a06b6e',
+    //       app_key: 'aa28d83034a1edc1f9a07b340847013c',
+    //       ResourceVersion: 'v4',
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res.data.city);
+    //     setCity(res.data.city);
+    //   });
+
+    setCity(flight.route.destinations[0]);
   }, []);
 
   const getStatus = () => {

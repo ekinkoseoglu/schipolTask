@@ -1,5 +1,4 @@
 .flightCard {
-  width: 1000px;
   border: 1px solid #eb1010;
 }
 :root {
@@ -13,35 +12,10 @@
   --font-weight-bold: 700;
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
-html {
-  box-sizing: border-box;
-  font-size: 10px;
-}
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-body {
-  font-family: poppins, sans-serif;
-  font-size: 1.6rem;
-  color: HSL(var(--color-purple));
-  background-color: HSL(var(--color-off-white));
-  text-rendering: optimizeLegibility;
-}
-body,
-input,
-button {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-img {
-  display: block;
-  max-width: 100%;
-}
+
 .container {
   margin: 4rem auto;
-  width: 130rem;
+
   padding: 0 4rem;
 }
 
@@ -120,6 +94,7 @@ img {
 .flight-card__departure {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex: 1 0 auto;
 
   margin-left: 2rem;
@@ -163,7 +138,7 @@ img {
   margin-bottom: 1rem;
 }
 .flight-card__cta {
-  min-width: 16rem;
+  /* min-width: 16rem; */
 }
 .sidebar {
   box-shadow: 0 0 0.1rem HSLA(var(--color-purple), 0.1);
@@ -173,7 +148,7 @@ img {
   background-color: #fff;
 }
 .sidebar__action {
-  width: 100%;
+  /* width: 100%; */
 }
 .sidebar-section:not(:last-child) {
   margin-bottom: 4rem;
