@@ -1,0 +1,80 @@
+.flightCard {
+  border: 1px solid #494949;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #acacac;
+  background-color: #e7e7e7;
+  padding: 10px;
+  margin: 10px;
+}
+
+.container {
+  margin: 4rem auto;
+
+  padding: 0 4rem;
+}
+
+.button {
+  border-radius: 0.8rem;
+  padding: 0.75em 2em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  font-size: 1.8rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.7s var(--ease-out-quart),
+    color 0.7s var(--ease-out-quart);
+}
+.button:hover {
+  background-color: HSL(
+    var(--button-hover-background-color, var(--color-dark-orange))
+  );
+  color: HSL(var(--button-hover-text-color, 0, 0%, 100%));
+}
+
+.top-flight-card__sub-heading {
+  font-size: 1rem;
+}
+.top-flight-card.is-active,
+.top-flight-card:hover {
+  background-color: HSL(var(--color-purple));
+  color: #fff;
+}
+.flights-list__item:not(:last-child) {
+  margin-bottom: 2.5rem;
+}
+
+.flight-card__departure {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 0 auto;
+
+  margin-left: 2rem;
+}
+
+.flight-card__type {
+  font-size: 1.4rem;
+  margin-top: 1rem;
+}
+
+.flight-card__time {
+  display: inline-block;
+  margin-bottom: 0.8rem;
+  font-size: 2rem;
+  font-weight: var(--font-weight-medium);
+}
+.flight-card__city {
+  margin-bottom: 0.4rem;
+  font-size: 1.8rem;
+}
+
+.flight-card__name {
+  margin-bottom: 0.4rem;
+  font-size: 1.2rem;
+  color: var(--color-gray);
+}
+.flight-card__day {
+  font-size: 1.4rem;
+}

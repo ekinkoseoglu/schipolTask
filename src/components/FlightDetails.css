@@ -1,13 +1,11 @@
-/* Airport Name Styles */
 .flight-details__header__city h2 {
   font-size: 2.5em;
-  background-image: linear-gradient(to right, #ff7a18, #af002d); /* Gradient */
+  background-image: linear-gradient(to right, #ff7a18, #af002d);
   -webkit-background-clip: text;
   color: transparent;
   margin-bottom: 10px;
 }
 
-/* Other Details Styles */
 .flight-details__header__details {
   display: flex;
 
@@ -29,17 +27,4 @@
 .flight-details__header__details div {
   flex: 1 1 50%;
   margin-bottom: 10px;
-}
-
-.flight-details__header__details h3 {
-  font-size: 1.3em;
-  margin: 0;
-  font-weight: normal;
-  text-align: start;
-  margin: 15px 0 15px 0;
-}
-.flight-details__header__details2 h3 {
-  font-size: 1.3em;
-  margin: 0;
-  font-weight: normal;
 }

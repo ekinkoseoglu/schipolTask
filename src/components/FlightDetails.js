@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import './FlightDetails.css';
 
 const FlightDetails = () => {
@@ -108,18 +108,8 @@ const FlightDetails = () => {
     }
   };
 
-  // Fetch the flight details based on flightId from your API or state
-  // Example: You can use flightId to fetch the specific flight details
-  // const [flightDetails, setFlightDetails] = useState(null);
-  // useEffect(() => {
-  //   axios.get(`/flights/${flightId}`).then((res) => {
-  //     setFlightDetails(res.data);
-  //   });
-  // }, [flightId]);
-
   return (
     <div className='flight-details'>
-      {/* Back button go to localhost:3000 */}
       <NavLink to='/' exact>
         <button>Back</button>
       </NavLink>
