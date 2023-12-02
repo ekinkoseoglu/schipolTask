@@ -95,6 +95,7 @@ const List = () => {
   return (
     <div>
       <h1>Flights</h1>
+
       <div className='container' ref={listRef}>
         <form onSubmit={submitHandler}>
           <label htmlFor='flightNumber'>Flight Number</label>
@@ -106,6 +107,12 @@ const List = () => {
           <button onClick={(e) => changeDirection('D')}>Departures</button>
           <button onClick={(e) => changeDirection('A')}>Arrivals</button>
         </div>
+
+        <strong>
+          {now.getDate() +
+            ' ' +
+            now.toLocaleString('en-us', { month: 'short' })}
+        </strong>
 
         {flights.map((flight) => (
           <Link
