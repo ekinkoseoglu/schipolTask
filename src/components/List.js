@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Card from './Card';
+import './List.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import DateSelect from './DateSelect';
+import FlightSearchForm from './FlightSearchForm';
+import DirectionButtons from './DirectionButtons';
 
 const List = () => {
   const [flights, setFlights] = useState([]);
@@ -10,14 +14,17 @@ const List = () => {
   const [pageList, setPageList] = useState(0);
   const listRef = useRef(null);
   const previousScrollPosition = useRef(0);
+  const [currentDate, setCurrentDate] = useState(new Date());
 
-  const now = new Date();
-  const tomorrow = new Date(Number(now));
-  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dates = [0, 1, 2, 3, 4, 5, 6, 7];
 
-  const getFlights = () => {
+  const date = new Date();
+
+  const getFlights = (direction, date, pageList) => {
+    const tomorrow = new Date(Number(date));
+    tomorrow.setDate(tomorrow.getDate() + 1);
     const url = `/flights?flightDirection=${direction}&fromDateTime=${
-      now.toJSON().split('.')[0]
+      date.toJSON().split('.')[0]
     }&toDateTime=${
       tomorrow.toJSON().split('.')[0]
     }&searchDateTimeField=scheduleDateTime&page=${pageList}&sort=+scheduleDate, +scheduleTime`;
@@ -32,7 +39,6 @@ const List = () => {
         },
       })
       .then((res) => {
-        console.log(res.data.flights);
         setFlights((prev) =>
           pageList === 0 ? res.data.flights : [...prev, ...res.data.flights]
         );
@@ -47,15 +53,18 @@ const List = () => {
       setIsLoading(true);
     }
 
-    getFlights();
-  }, [direction, pageList]);
+    getFlights(direction, currentDate, pageList);
+  }, [direction, pageList, currentDate]);
 
   const changeDirection = (mode) => {
     setDirection(mode);
-    setPageList(0);
-    setFlights([]);
   };
 
+  const selectDateHandler = (e) => {
+    const selectedDate = new Date();
+    selectedDate.setDate(selectedDate.getDate() + Number(e.target.value));
+    setCurrentDate(selectedDate);
+  };
   const pageListHandler = () => {
     setPageList((prev) => prev + 1);
     previousScrollPosition.current = listRef.current.scrollTop;
@@ -67,13 +76,11 @@ const List = () => {
     }
   }, [flights]);
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-
-    if (e.target.flightNumber.value) {
+  const submitHandler = (flightNumber) => {
+    if (flightNumber) {
       setIsLoading(true);
       axios
-        .get(`/flights?flightName=${e.target.flightNumber.value}`, {
+        .get(`/flights?flightName=${flightNumber}`, {
           headers: {
             Accept: 'application/json',
             app_id: 'b1a06b6e',
@@ -82,42 +89,35 @@ const List = () => {
           },
         })
         .then((res) => {
-          console.log(res.data.flights);
           setFlights(res.data.flights);
           setIsLoading(false);
         });
-
-      return;
     } else {
-      getFlights();
+      getFlights(direction, pageList);
     }
   };
+
   return (
     <div>
       <h1>Flights</h1>
 
       <div className='container' ref={listRef}>
-        <form onSubmit={submitHandler}>
-          <label htmlFor='flightNumber'>Flight Number</label>
-          <input type='text' name='flightNumber' id='flightNumber' />
-          <button type='submit'>Search</button>
-        </form>
-
-        <div>
-          <button onClick={(e) => changeDirection('D')}>Departures</button>
-          <button onClick={(e) => changeDirection('A')}>Arrivals</button>
+        <div className='d-flex justify-content-between'>
+          <DateSelect dates={dates} selectDateHandler={selectDateHandler} />
+          <FlightSearchForm handleSearch={submitHandler} />
         </div>
 
-        <strong>
-          {now.getDate() +
-            ' ' +
-            now.toLocaleString('en-us', { month: 'short' })}
-        </strong>
+        <DirectionButtons
+          currentDate={currentDate}
+          direction={direction}
+          changeDirection={changeDirection}
+        />
 
         {flights.map((flight) => (
           <Link
             to={`/flights/${flight.id}`}
             style={{ color: 'inherit', textDecoration: 'none' }}
+            key={flight.id}
           >
             <Card flight={flight} direction={direction} />
           </Link>
