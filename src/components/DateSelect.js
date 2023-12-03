@@ -1,4 +1,5 @@
 import React from 'react';
+import './DateSelect.css';
 
 const DateSelect = ({ dates, selectDateHandler }) => {
   const dateOptions = dates.map((date) => {

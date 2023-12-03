@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './FlightSearchForm.css';
 
 const FlightSearchForm = ({ handleSearch }) => {
   const [flightNumber, setFlightNumber] = useState('');
