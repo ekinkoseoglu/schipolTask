@@ -93,7 +93,7 @@ const List = () => {
           setIsLoading(false);
         });
     } else {
-      getFlights(direction, pageList);
+      return;
     }
   };
 
